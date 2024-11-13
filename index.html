@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Dancing Script", cursive;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(https://img.freepik.com/premium-photo/background-slide-presentation-with-lots-blank-space_1106493-475274.jpg?ga=GA1.1.2134806613.1728962710&semt=ais_hybrid);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 600px;
+            background: rgb(51, 51, 80);
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            padding-bottom: 30px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 45px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: transparent;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #studentForm input::placeholder {
+            color: white;
+            opacity: 1;
+        }
+
+        button {
+            padding: 10px;
+            background-image: linear-gradient(to right, #f05ec7 0%, #1f69eb 51%, #f05ec7 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 22px;
+             font-weight: bold;
+        }
+
+        #studentList {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: transparent;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 25px;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Student Management System</h1>
+        <form id="studentForm">
+            <input type="text" id="name" placeholder="Enter student name" required>
+            <input type="number" id="age" placeholder="Enter student age" required>
+            <input type="text" id="course" placeholder="Enter course name" required>
+            <button type="submit">Add Student</button>
+        </form>
+        <div id="studentList">
+            <h2>Student List</h2>
+            <ul id="list"></ul>
+        </div>
+    </div>
+    <script>
+        // Constructor for Student
+        function Student(name, age, course) {
+            this.name = name;
+            this.age = age;
+            this.course = course;
+        }
+
+        // Array to store student objects
+        let students = [];
+
+        // Function to add a new student
+        function addStudent(student) {
+            students.push(student);
+            displayStudents();
+        }
+
+        // Function to display students in the list
+        function displayStudents() {
+            const list = document.getElementById('list');
+            list.innerHTML = '';
+
+            students.forEach((student, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${student.name}, Age: ${student.age}, Course: ${student.course}`;
+                list.appendChild(listItem);
+            });
+        }
+
+        // Form submission event listener
+        document.getElementById('studentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const course = document.getElementById('course').value;
+
+            if (name && age && course) {
+                const newStudent = new Student(name, age, course);
+                addStudent(newStudent);
+
+                // Clear input fields after adding the student
+                document.getElementById('studentForm').reset();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
